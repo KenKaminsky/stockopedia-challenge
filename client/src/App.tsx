@@ -1,16 +1,14 @@
 import { ApolloProvider } from '@apollo/client';
+import { CssBaseline } from '@material-ui/core';
 import React from 'react';
 import client from './apollo_client';
-import './App.css';
-import Page from './components/page';
-import logo from './logo.svg';
+import Plans from './Pages/Plans';
 
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className='App'>
-        <Page />
-      </div>
+      <CssBaseline />
+      <Plans />
     </ApolloProvider>
   );
 }

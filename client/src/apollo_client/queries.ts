@@ -1,11 +1,18 @@
 import { gql } from '@apollo/client';
 
-export const GET_CURRENCIES = gql`
-  query currencies {
+export const GET_DATA = gql`
+  query data {
     currencies {
-      _id
+      id
       name
       rate
+    }
+    plans {
+      id
+      code
+      name
+      monthlyCost
+      annualCost
     }
   }
 `;

@@ -13,6 +13,6 @@ const httpLink = new HttpLink({
 });
 
 export default new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({ addTypename: false }),
   link: ApolloLink.from([httpLink]),
 });
