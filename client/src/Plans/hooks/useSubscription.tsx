@@ -1,5 +1,5 @@
 import { useCallback, useContext } from 'react';
-import { IBillingCycle, ICurrency, IPlan } from '../../../apollo_client/types';
+import { IBillingCycle, IPlan } from '../../apollo_client/types';
 import {
   ISubscriptionProvider,
   SubscriptionContext,
@@ -9,6 +9,7 @@ import {
   CHANGE_CURRENCY,
   CHANGE_PLAN,
 } from '../reducers/subscriptionReducer';
+import { ICurrency } from './useAltCurrencies';
 
 export interface IUseSubscription extends ISubscriptionProvider {
   changePlans: (plan: IPlan) => void;

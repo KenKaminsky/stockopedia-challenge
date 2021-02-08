@@ -14,7 +14,7 @@ import MenuList from '@material-ui/core/MenuList';
 import Popper from '@material-ui/core/Popper';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import React, { useRef, useState } from 'react';
-import { IIdentifiable } from '../../../apollo_client/types';
+import { IIdentifiable } from '../../apollo_client/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,19 +32,17 @@ const defaultSelecte: IIdentifiable = { id: '0', name: 'None' };
 interface ISelectProps<T extends IIdentifiable> {
   state: T;
   options: T[];
-  initialIndex?: number;
   onChange: (selected: T) => void;
 }
 const Select = <T extends IIdentifiable>({
   state,
   options,
   onChange,
-  initialIndex,
 }: ISelectProps<T>) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = useState(initialIndex || 0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
@@ -77,7 +75,6 @@ const Select = <T extends IIdentifiable>({
         ref={anchorRef}
         className={styles.grow}
       >
-        {/* <Button className={styles.grow}>{options[selectedIndex].name}</Button> */}
         <Button className={styles.grow}>
           {state?.name || defaultSelecte.name}
         </Button>

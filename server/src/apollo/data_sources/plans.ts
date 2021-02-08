@@ -6,10 +6,6 @@ class PlanAPI extends DataSource {
     super();
   }
 
-  initialize() {
-    //
-  }
-
   getPlans() {
     return Plan.find();
   }

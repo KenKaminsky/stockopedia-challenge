@@ -1,10 +1,10 @@
-import { Box, createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
+import { Box, createStyles, makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
-import { IPlan } from '../../../apollo_client/types';
+import { IPlansProps } from '..';
 import useSubscription from '../hooks/useSubscription';
 import Plan from './plan';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: '100%',
@@ -17,26 +17,14 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       width: '100%',
     },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-    },
-    avatar: {
-      backgroundColor: 'red',
-    },
     selected: {
       background: '#00B67A',
     },
   }),
 );
 
-interface IPlansProps {
-  plans: IPlan[];
-}
-
 const Addons: React.FC<IPlansProps> = ({ plans }) => {
   const styles = useStyles();
-  const { state, changePlans } = useSubscription();
 
   return (
     <Paper className={styles.root} square>
@@ -44,17 +32,7 @@ const Addons: React.FC<IPlansProps> = ({ plans }) => {
         <h3>2. Select Add-ons</h3>
       </Box>
       <Box className={styles.container}>
-        {plans &&
-          plans.map((plan) => (
-            <Plan
-              key={plan.id}
-              className={
-                state.plans.includes(plan) ? styles.selected : styles.container
-              }
-              plan={plan}
-              onClick={() => changePlans(plan)}
-            />
-          ))}
+        {plans && plans.map((plan) => <Plan key={plan.id} plan={plan} />)}
       </Box>
     </Paper>
   );

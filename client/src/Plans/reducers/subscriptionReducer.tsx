@@ -1,4 +1,5 @@
-import { IBillingCycle, ICurrency, IPlan } from '../../../apollo_client/types';
+import { IBillingCycle, IPlan } from '../../apollo_client/types';
+import { ICurrency } from '../hooks/useAltCurrencies';
 
 export interface ISubscriptionState {
   plans: IPlan[];
@@ -21,7 +22,6 @@ export const subscriptionReducer = (
 ): ISubscriptionState => {
   switch (action.type) {
     case CHANGE_PLAN:
-      console.log(state.plans);
       const index = state.plans.findIndex(
         (plan: IPlan) => plan.id === action.payload.id,
       );

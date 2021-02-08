@@ -1,15 +1,14 @@
 import { useQuery } from '@apollo/client';
-import { Box, createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
+import { Box, createStyles, makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
-import { GET_DATA } from '../../apollo_client/queries';
-import { IData } from '../../apollo_client/types';
+import { GET_DATA } from '../apollo_client/queries';
+import { IData, IPlan } from '../apollo_client/types';
+import Addons from './components/addons';
 import Choose from './components/choose';
 import Confirm from './components/confirm';
-import Addons from './components/addons';
 import { SubscriptionProvider } from './providers/subbscriptionProvider';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: '100vh',
@@ -22,6 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+export interface IPlansProps {
+  plans: IPlan[];
+}
 
 const Plans = () => {
   const classes = useStyles();
@@ -46,7 +49,7 @@ const Plans = () => {
                 <Paper className={classes.container} variant='outlined'>
                   <Choose plans={data.plans} />
                   <Addons plans={data.plans} />
-                  <Confirm currencies={data.currencies} />
+                  <Confirm />
                 </Paper>
               )
             )}

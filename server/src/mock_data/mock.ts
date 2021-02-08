@@ -1,4 +1,3 @@
-import Currency from '../models/currency';
 import Plan from '../models/plan';
 
 const gb = new Plan({
@@ -33,8 +32,3 @@ const jp = new Plan({
 });
 
 export const plans = [gb, fr, de, us, jp];
-
-const gbp = new Currency({ name: 'GBP', rate: 1 });
-const eur = new Currency({ name: 'EUR', rate: 1.14 });
-
-export const currencies = [gbp, eur];

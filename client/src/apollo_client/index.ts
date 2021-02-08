@@ -1,9 +1,8 @@
 import {
-  gql,
   ApolloClient,
-  InMemoryCache,
-  HttpLink,
   ApolloLink,
+  HttpLink,
+  InMemoryCache,
 } from '@apollo/client';
 import fetch from 'cross-fetch';
 

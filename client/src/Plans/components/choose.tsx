@@ -7,7 +7,8 @@ import {
   Theme,
 } from '@material-ui/core';
 import React from 'react';
-import { IBillingCycle, IPlan } from '../../../apollo_client/types';
+import { IPlansProps } from '..';
+import { IBillingCycle } from '../../apollo_client/types';
 import useSubscription from '../hooks/useSubscription';
 import Select from './select';
 
@@ -25,10 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-interface IPlansProps {
-  plans: IPlan[];
-}
 
 const billingCycles: Array<IBillingCycle> = ['Annually', 'Monthly'];
 

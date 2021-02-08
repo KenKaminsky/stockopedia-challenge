@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useMemo, useReducer } from 'react';
+import { CURRENCIES } from '../../constants/currencies';
 import {
   Action,
   ISubscriptionState,
@@ -8,7 +9,8 @@ import {
 const initState: ISubscriptionState = {
   plans: [],
   billing: 'Annually',
-  currency: { id: '1', name: 'GBP', rate: 1 },
+  currency: CURRENCIES.GBP,
+  // currency: { id: '3', name: 'GBP', rate: 1, symbol: '£' }, //CURRENCIES.GBP,
 };
 
 export interface ISubscriptionProvider {

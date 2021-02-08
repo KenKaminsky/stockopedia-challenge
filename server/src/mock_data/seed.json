@@ -30,11 +30,5 @@
       "monthlyCost": 15,
       "annualCost": 65
     }
-  ],
-  "currencies": [
-    { "name": "GBP", "rate": 1 },
-    { "name": "EUR", "rate": 0.88 },
-    { "name": "USD", "rate": 0.73 },
-    { "name": "JPY", "rate": 0.0069 }
   ]
 }
