@@ -1,25 +1,12 @@
 import { useEffect, useState } from 'react';
-import { CURRENCIES } from '../../constants/currencies';
+import { ALT_CURRENCIES, CURRENCIES, ICurrency } from '../../constants';
 import useSubscription from './useSubscription';
 
 type IRates = Record<string, number>;
 
-const alternativeCurrencies = ['GBP', 'EUR', 'USD', 'JPY'] as const;
-
-export type ICurrencyName = typeof alternativeCurrencies[number];
-
-export interface ICurrency {
-  id: string;
-  name: ICurrencyName;
-  rate: number;
-  symbol: string;
-}
-
-export type ICurrencyMap = Record<ICurrencyName, ICurrency>;
-
 const KEY = process.env.REACT_APP_API_KEY;
 const API_BASE = `http://api.currencylayer.com/live`;
-const CURRENCIES_SYMS = alternativeCurrencies.join(',');
+const CURRENCIES_SYMS = ALT_CURRENCIES.join(',');
 const URL = `${API_BASE}?access_key=${KEY}&currencies=${CURRENCIES_SYMS}`;
 
 const adjustToGBP = (usdRelativeRates: IRates): IRates => {

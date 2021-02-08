@@ -1,3 +1,5 @@
+import { IFlags } from '../constants';
+
 export interface IIdentifiable {
   id: string;
   name: string;
@@ -12,13 +14,3 @@ export interface IPlan extends IIdentifiable {
 export interface IData {
   plans: IPlan[];
 }
-
-export interface IFlags {
-  gb: string;
-  de: string;
-  fr: string;
-  us: string;
-  jp: string;
-}
-
-export type IBillingCycle = 'Monthly' | 'Annually';

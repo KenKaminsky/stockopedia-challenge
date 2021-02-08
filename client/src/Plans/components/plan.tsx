@@ -4,9 +4,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { IFlags, IPlan } from '../../apollo_client/types';
+import { IPlan } from '../../apollo_client/types';
 import useSubscription from '../hooks/useSubscription';
-import flags from '../styles/flags.json';
+import { FLAGS } from '../../constants';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,7 +58,7 @@ const Plan: React.FC<IPlanProps> = ({ plan }) => {
     >
       <CardMedia
         className={classes.cover}
-        image={(flags as IFlags)[plan.code]}
+        image={FLAGS[plan.code]}
         title={plan.name}
       />
       <div className={classes.details}>

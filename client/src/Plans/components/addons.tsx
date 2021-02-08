@@ -1,7 +1,6 @@
 import { Box, createStyles, makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
 import { IPlansProps } from '..';
-import useSubscription from '../hooks/useSubscription';
 import Plan from './plan';
 
 const useStyles = makeStyles(() =>

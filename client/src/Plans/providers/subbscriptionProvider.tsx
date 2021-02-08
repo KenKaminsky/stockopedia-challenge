@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useMemo, useReducer } from 'react';
-import { CURRENCIES } from '../../constants/currencies';
+import { CURRENCIES } from '../../constants';
 import {
   Action,
   ISubscriptionState,

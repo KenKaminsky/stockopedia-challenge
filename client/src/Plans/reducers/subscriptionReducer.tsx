@@ -1,5 +1,6 @@
-import { IBillingCycle, IPlan } from '../../apollo_client/types';
-import { ICurrency } from '../hooks/useAltCurrencies';
+import { IPlan } from '../../apollo_client/types';
+import { IBillingCycle } from '../../constants';
+import { ICurrency } from '../../constants';
 
 export interface ISubscriptionState {
   plans: IPlan[];
