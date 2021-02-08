@@ -1,25 +1,22 @@
-import mongoose from 'mongoose';
-import Region from './region';
+import { Schema, Document, model, Model } from 'mongoose';
 
-const planSchema = new mongoose.Schema({
+interface IPlan {
+  code: string;
+  name: string;
+  monthlyCost: number;
+  annualCost: number;
+}
+
+interface IPlanDocument extends IPlan, Document {}
+type IPlanModel = Model<IPlanDocument>;
+
+const PlanSchema = new Schema<IPlanDocument, IPlanModel>({
+  code: { type: String },
   name: { type: String },
-  account: { type: Number },
-  billinPeriod: { type: Number },
-  regions: { type: [Region.schema] },
-  total: { type: Number },
-  currency: { type: Number },
-  isActive: { type: Boolean },
-  isTrial: { type: Boolean, default: true },
-  trialEnd: { type: Date, default: () => Date.now() + 7 * 24 * 60 * 60 * 1000 },
-  cratedOn: { type: Date, default: () => Date.now() }, // check mongoose-timestaps
-  billingDate: { type: Date, default: () => Date.now() + 7 * 24 * 60 * 60 * 1000 },
+  monthlyCost: { type: Number },
+  annualCost: { type: Number },
 });
 
-export default mongoose.model('Plan', planSchema);
+const Plan = model('Plan', PlanSchema);
 
-// UserSchema.plugin(timestamps);
-
-// UserSchema.index({ createdAt: 1, updatedAt: 1 });
-
-// export const User = mongoose.model('User', UserSchema);
-// export const UserTC = composeWithMongoose(User);
+export default Plan;

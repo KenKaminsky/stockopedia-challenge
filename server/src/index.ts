@@ -1,9 +1,12 @@
 import cors from 'cors';
 import env from 'dotenv';
 import express from 'express';
-import morgan from 'morgan';
 import mongoose from 'mongoose';
+import morgan from 'morgan';
 import { attachApollo } from './apollo/server';
+import { plans, currencies } from './mock_data/seed.json';
+import Currency from './models/currency';
+import Plan from './models/plan';
 
 env.config(); //take this out to a script arg
 console.log(process.env.PORT);
@@ -33,8 +36,14 @@ mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/stockopedia`, { useNewUrlParse
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console.error, 'MongoDB connection error: '));
-db.once('open', () => {
+db.once('open', async () => {
   console.log('Connected to MongoDB');
+
+  const plansCount = await Plan.countDocuments({});
+  if (plansCount === 0) await Plan.insertMany(plans);
+
+  const currencyCount = await Currency.countDocuments({});
+  if (currencyCount === 0) await Currency.insertMany(currencies);
 
   app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 

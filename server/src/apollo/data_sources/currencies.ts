@@ -1,5 +1,5 @@
-import { currencies } from '../../mock_data/mock';
 import { DataSource } from 'apollo-datasource';
+import Currency from '../../models/currency';
 
 class CurrencyAPI extends DataSource {
   constructor() {
@@ -11,7 +11,7 @@ class CurrencyAPI extends DataSource {
   }
 
   getCurrencies() {
-    return currencies;
+    return Currency.find();
   }
 }
 
