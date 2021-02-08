@@ -36,7 +36,7 @@ const Plans = () => {
           alignItems='center'
           justifyContent='center'
         >
-          <Grid container sm={8}>
+          <Box>
             {loading ? (
               <p>Loading...</p>
             ) : error ? (
@@ -50,7 +50,7 @@ const Plans = () => {
                 </Paper>
               )
             )}
-          </Grid>
+          </Box>
         </Box>
       </div>
     </SubscriptionProvider>

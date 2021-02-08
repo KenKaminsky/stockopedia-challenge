@@ -1,3 +1,5 @@
+export type ICurrencyName = 'GBP' | 'EUR' | 'USD' | 'JPY';
+
 export interface ICurrency {
   id: string;
   name: ICurrencyName;
@@ -29,7 +31,5 @@ export interface IFlags {
   us: string;
   jp: string;
 }
-
-export type ICurrencyName = 'GBP' | 'EUR' | 'USD' | 'JPY';
 
 export type IBillingCycle = 'Monthly' | 'Annually';

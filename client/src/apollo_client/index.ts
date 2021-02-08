@@ -8,7 +8,7 @@ import {
 import fetch from 'cross-fetch';
 
 const httpLink = new HttpLink({
-  uri: ' http://localhost:8081/graphql',
+  uri: process.env.REACT_APP_BASE_URL,
   fetch: fetch,
 });
 

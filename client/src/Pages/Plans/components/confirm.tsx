@@ -5,12 +5,12 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ICurrency } from '../../../apollo_client/types';
-import Select from './select';
+import useAltCurrency from '../hooks/useAltCurrency';
 import useSubscription from '../hooks/useSubscription';
-import currencySymbols from '../styles/currencySymbols';
+import { currencySymbols } from '../hooks/useAltCurrency';
+import Select from './select';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,46 +38,14 @@ interface ICurrencyProps {
   currencies: ICurrency[];
 }
 
-type IRates = Record<string, number>;
-
-interface IApiResponse {
-  quotes: IRates;
-}
-
-const response: IApiResponse = {
-  quotes: {
-    USDEUR: 0.829941,
-    USDGBP: 0.727987,
-    USDJPY: 105.355504,
-    USDUSD: 1,
-  },
-};
-
-const adjustToGBP = (usdRelativeRates: IRates): IRates => {
-  const GBP = 1 / usdRelativeRates.USDGBP;
-  return Object.fromEntries(
-    Object.entries(usdRelativeRates).map(([key, val]) => [
-      key.replace(/^USD/, ''),
-      key === 'USDGBP' ? 1 : GBP * val,
-    ]),
-  );
-};
-
 const Comfirm: React.FC<ICurrencyProps> = ({ currencies }) => {
   const styles = useStyles();
-  const { state, changeCurrency } = useSubscription();
+
+  const { state } = useSubscription();
+
   const [total, setTotal] = useState(0);
 
-  const updateCurrency = async (currency: ICurrency) => {
-    const currencySyms = currencies.map((cur) => cur.name).join(',');
-    // const rates = await fetch(
-    //   `http://api.currencylayer.com/live?access_key=35e1b8f614fb85ebd42495420c724509&currencies=${currencySyms}&format=1`,
-    // ).then((res) => res.json());
-    const rates = adjustToGBP(response.quotes);
-
-    console.log(rates);
-    changeCurrency({ ...currency, rate: rates[currency.name] });
-  };
+  const { updateCurrency, error, isLoading } = useAltCurrency();
 
   useEffect(() => {
     const billing: 'annualCost' | 'monthlyCost' =
@@ -97,8 +65,11 @@ const Comfirm: React.FC<ICurrencyProps> = ({ currencies }) => {
       </Box>
       <Box className={styles.container}>
         <Select
+          state={state.currency}
           options={currencies}
-          initialIndex={currencies.findIndex((cur) => cur.name === 'GBP')}
+          initialIndex={currencies.findIndex(
+            (cur) => cur.name === state.currency.name,
+          )}
           onChange={(selected) => updateCurrency(selected)}
         />
       </Box>

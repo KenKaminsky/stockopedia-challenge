@@ -43,6 +43,7 @@ const Choose: React.FC<IPlansProps> = ({ plans }) => {
       </Box>
       <Box className={styles.container}>
         <Select
+          state={state.plans[0]}
           options={plans}
           onChange={(selected) => changePlans(selected)}
         />

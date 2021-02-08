@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { IBillingCycle, ICurrency, IPlan } from '../../../apollo_client/types';
 import {
   ISubscriptionProvider,
@@ -25,15 +25,22 @@ const useSubscription = (): IUseSubscription => {
   }
   const { state, dispatch } = context;
 
-  const changeCurrency = (currency: ICurrency) =>
-    dispatch({ type: CHANGE_CURRENCY, payload: currency });
+  const changeCurrency = useCallback(
+    (currency: ICurrency) =>
+      dispatch({ type: CHANGE_CURRENCY, payload: currency }),
+    [dispatch],
+  );
 
-  const changeBilling = (selected: IBillingCycle) => {
-    dispatch({ type: CHANGE_BILLING_CYCLE, payload: selected });
-  };
+  const changeBilling = useCallback(
+    (selected: IBillingCycle) =>
+      dispatch({ type: CHANGE_BILLING_CYCLE, payload: selected }),
+    [dispatch],
+  );
 
-  const changePlans = (plan: IPlan) =>
-    dispatch({ type: CHANGE_PLAN, payload: plan });
+  const changePlans = useCallback(
+    (plan: IPlan) => dispatch({ type: CHANGE_PLAN, payload: plan }),
+    [dispatch],
+  );
 
   return { state, dispatch, changePlans, changeBilling, changeCurrency };
 };

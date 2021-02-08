@@ -1,15 +1,8 @@
-import {
-  Box,
-  createStyles,
-  Grid,
-  makeStyles,
-  Paper,
-  Theme,
-} from '@material-ui/core';
-import React, { useState } from 'react';
+import { Box, createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
+import React from 'react';
 import { IPlan } from '../../../apollo_client/types';
-import Plan from './plan';
 import useSubscription from '../hooks/useSubscription';
+import Plan from './plan';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

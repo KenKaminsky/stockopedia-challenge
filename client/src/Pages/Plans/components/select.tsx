@@ -27,14 +27,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+const defaultSelecte: IIdentifiable = { id: '0', name: 'None' };
 
 interface ISelectProps<T extends IIdentifiable> {
+  state: T;
   options: T[];
   initialIndex?: number;
   onChange: (selected: T) => void;
 }
-
 const Select = <T extends IIdentifiable>({
+  state,
   options,
   onChange,
   initialIndex,
@@ -43,10 +45,6 @@ const Select = <T extends IIdentifiable>({
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(initialIndex || 0);
-
-  const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex].name}`);
-  };
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
@@ -79,8 +77,9 @@ const Select = <T extends IIdentifiable>({
         ref={anchorRef}
         className={styles.grow}
       >
-        <Button onClick={handleClick} className={styles.grow}>
-          {options[selectedIndex].name}
+        {/* <Button className={styles.grow}>{options[selectedIndex].name}</Button> */}
+        <Button className={styles.grow}>
+          {state?.name || defaultSelecte.name}
         </Button>
         <Button color='primary' size='small' onClick={handleToggle}>
           <ArrowDropDownIcon />

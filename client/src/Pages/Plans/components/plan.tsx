@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { IFlags, IPlan } from '../../../apollo_client/types';
 import useSubscription from '../hooks/useSubscription';
-import currencySymbols from '../styles/currencySymbols';
+import { currencySymbols } from '../hooks/useAltCurrency';
 import flags from '../styles/flags.json';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -48,6 +48,10 @@ const Plan: React.FC<IPlanProps> = ({ plan, onClick, className }) => {
     state: { billing, plans, currency },
   } = useSubscription();
 
+  const price =
+    (billing === 'Annually' ? plan.annualCost : plan.monthlyCost) *
+    currency.rate;
+
   return (
     <Card
       variant='outlined'
@@ -65,8 +69,7 @@ const Plan: React.FC<IPlanProps> = ({ plan, onClick, className }) => {
             {plan.name}
           </Typography>
           <Typography variant='subtitle1' color='textSecondary'>
-            {currencySymbols[currency.name]}{' '}
-            {billing === 'Annually' ? plan.annualCost : plan.monthlyCost}
+            {currencySymbols[currency.name]} {price.toFixed(0)}
           </Typography>
         </CardContent>
       </div>

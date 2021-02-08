@@ -1,4 +1,4 @@
-FROM node:15.3.0
+FROM node:15.8.0-alpine3.10
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -12,6 +12,6 @@ RUN yarn install
 # Bundle app source
 COPY . .
 
-EXPOSE 8080
+EXPOSE 5000
 
-CMD [ "npm", "start" ]
+CMD [ "yarn", "dev" ]
