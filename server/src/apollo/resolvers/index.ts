@@ -1,5 +1,5 @@
-import query from './query';
-
 export default {
-  Query: query,
+  Query: {
+    plans: (_, __, { dataSources }) => dataSources.planAPI.getPlans(),
+  },
 };

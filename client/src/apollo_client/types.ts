@@ -1,35 +1,16 @@
-export type ICurrencyName = 'GBP' | 'EUR' | 'USD' | 'JPY';
-
-export interface ICurrency {
-  id: string;
-  name: ICurrencyName;
-  rate: number;
-}
-
-export interface IPlan {
-  id: string;
-  name: string;
-  code: keyof IFlags;
-  monthlyCost: number;
-  annualCost: number;
-}
-
-export interface IData {
-  currencies: ICurrency[];
-  plans: IPlan[];
-}
+import { IFlags } from '../constants';
 
 export interface IIdentifiable {
   id: string;
   name: string;
 }
 
-export interface IFlags {
-  gb: string;
-  de: string;
-  fr: string;
-  us: string;
-  jp: string;
+export interface IPlan extends IIdentifiable {
+  code: keyof IFlags;
+  monthlyCost: number;
+  annualCost: number;
 }
 
-export type IBillingCycle = 'Monthly' | 'Annually';
+export interface IData {
+  plans: IPlan[];
+}

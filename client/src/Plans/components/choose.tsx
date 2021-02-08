@@ -7,7 +7,8 @@ import {
   Theme,
 } from '@material-ui/core';
 import React from 'react';
-import { IBillingCycle, IPlan } from '../../../apollo_client/types';
+import { IPlansProps } from '..';
+import { BILLING_CYCLES } from '../../constants';
 import useSubscription from '../hooks/useSubscription';
 import Select from './select';
 
@@ -25,12 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-interface IPlansProps {
-  plans: IPlan[];
-}
-
-const billingCycles: Array<IBillingCycle> = ['Annually', 'Monthly'];
 
 const Choose: React.FC<IPlansProps> = ({ plans }) => {
   const styles = useStyles();
@@ -53,17 +48,11 @@ const Choose: React.FC<IPlansProps> = ({ plans }) => {
           <h3>Billing period:</h3>
         </Box>
         <Box>
-          <ButtonGroup
-            disableElevation
-            variant='contained'
-            color='primary'
-            style={{ display: 'flex' }}
-          >
-            {billingCycles.map((cycle) => (
+          <ButtonGroup disableElevation variant='contained' color='primary'>
+            {BILLING_CYCLES.map((cycle) => (
               <Button
                 key={cycle}
                 variant={cycle === state.billing ? 'contained' : 'outlined'}
-                style={{ flexGrow: 1 }}
                 onClick={() => changeBilling(cycle)}
               >
                 {cycle}

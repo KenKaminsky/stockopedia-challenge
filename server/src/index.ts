@@ -4,20 +4,14 @@ import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import { attachApollo } from './apollo/server';
-import { plans, currencies } from './mock_data/seed.json';
-import Currency from './models/currency';
+import { plans } from '../data/seed.json';
 import Plan from './models/plan';
 
 env.config(); //take this out to a script arg
-console.log(process.env.PORT);
-console.log(process.env.NODE_ENV);
 const PORT = process.env.PORT || 8080;
 const HOST = '0.0.0.0';
 
 const app = express();
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
 
 // cord for development
 app.use(cors());
@@ -42,10 +36,7 @@ db.once('open', async () => {
   const plansCount = await Plan.countDocuments({});
   if (plansCount === 0) await Plan.insertMany(plans);
 
-  const currencyCount = await Currency.countDocuments({});
-  if (currencyCount === 0) await Currency.insertMany(currencies);
-
-  app.get('/', (req, res) => res.send('Express + TypeScript Server'));
+  app.get('/', (req, res) => res.send('Access the API at /graphql'));
 
   app.listen(PORT, () => {
     console.log(`[server]: Server is running at https://${HOST}:${PORT}`);

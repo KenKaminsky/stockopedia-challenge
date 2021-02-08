@@ -1,12 +1,6 @@
 import { gql } from 'apollo-server';
 
 const typeDefs = gql`
-  type Currency {
-    id: ID!
-    name: String
-    rate: Float
-  }
-
   type Plan {
     id: ID!
     code: String
@@ -16,7 +10,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    currencies: [Currency]
     plans: [Plan]
   }
 `;

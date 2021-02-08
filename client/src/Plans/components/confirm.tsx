@@ -5,11 +5,9 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import React, { useCallback, useEffect, useState } from 'react';
-import { ICurrency } from '../../../apollo_client/types';
-import useAltCurrency from '../hooks/useAltCurrency';
+import React, { useEffect, useState } from 'react';
+import useAltCurrencies from '../hooks/useAltCurrencies';
 import useSubscription from '../hooks/useSubscription';
-import { currencySymbols } from '../hooks/useAltCurrency';
 import Select from './select';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,18 +32,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface ICurrencyProps {
-  currencies: ICurrency[];
-}
-
-const Comfirm: React.FC<ICurrencyProps> = ({ currencies }) => {
+const Comfirm: React.FC = () => {
   const styles = useStyles();
 
   const { state } = useSubscription();
 
   const [total, setTotal] = useState(0);
 
-  const { updateCurrency, error, isLoading } = useAltCurrency();
+  const { currencies, updateCurrency, error, isLoading } = useAltCurrencies();
 
   useEffect(() => {
     const billing: 'annualCost' | 'monthlyCost' =
@@ -67,18 +61,22 @@ const Comfirm: React.FC<ICurrencyProps> = ({ currencies }) => {
         <Select
           state={state.currency}
           options={currencies}
-          initialIndex={currencies.findIndex(
-            (cur) => cur.name === state.currency.name,
-          )}
           onChange={(selected) => updateCurrency(selected)}
         />
+        <Box className={styles.container}>
+          {isLoading
+            ? 'Fetching exchange rates...'
+            : error
+            ? error.message
+            : ''}
+        </Box>
       </Box>
       <Box className={styles.summary}>
         <Typography variant={'subtitle1'} color='textSecondary'>
           Total:
         </Typography>
         <Typography variant={'h4'} color='textSecondary'>
-          {`${currencySymbols[state.currency.name]} ${total}`}
+          {`${state.currency.symbol} ${total}`}
         </Typography>
       </Box>
     </Box>

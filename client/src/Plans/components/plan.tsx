@@ -4,10 +4,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { IFlags, IPlan } from '../../../apollo_client/types';
+import { IPlan } from '../../apollo_client/types';
 import useSubscription from '../hooks/useSubscription';
-import { currencySymbols } from '../hooks/useAltCurrency';
-import flags from '../styles/flags.json';
+import { FLAGS } from '../../constants';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,14 +37,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IPlanProps {
   plan: IPlan;
-  className: string;
-  onClick: (plan: IPlan) => void;
 }
 
-const Plan: React.FC<IPlanProps> = ({ plan, onClick, className }) => {
+const Plan: React.FC<IPlanProps> = ({ plan }) => {
   const classes = useStyles();
   const {
     state: { billing, plans, currency },
+    changePlans,
   } = useSubscription();
 
   const price =
@@ -56,11 +54,11 @@ const Plan: React.FC<IPlanProps> = ({ plan, onClick, className }) => {
     <Card
       variant='outlined'
       className={classes.root}
-      onClick={() => onClick(plan)}
+      onClick={() => changePlans(plan)}
     >
       <CardMedia
         className={classes.cover}
-        image={(flags as IFlags)[plan.code]}
+        image={FLAGS[plan.code]}
         title={plan.name}
       />
       <div className={classes.details}>
@@ -69,7 +67,7 @@ const Plan: React.FC<IPlanProps> = ({ plan, onClick, className }) => {
             {plan.name}
           </Typography>
           <Typography variant='subtitle1' color='textSecondary'>
-            {currencySymbols[currency.name]} {price.toFixed(0)}
+            {currency.symbol} {price.toFixed(0)}
           </Typography>
         </CardContent>
       </div>
