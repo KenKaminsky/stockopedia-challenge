@@ -48,17 +48,11 @@ const Choose: React.FC<IPlansProps> = ({ plans }) => {
           <h3>Billing period:</h3>
         </Box>
         <Box>
-          <ButtonGroup
-            disableElevation
-            variant='contained'
-            color='primary'
-            style={{ display: 'flex' }}
-          >
+          <ButtonGroup disableElevation variant='contained' color='primary'>
             {BILLING_CYCLES.map((cycle) => (
               <Button
                 key={cycle}
                 variant={cycle === state.billing ? 'contained' : 'outlined'}
-                style={{ flexGrow: 1 }}
                 onClick={() => changeBilling(cycle)}
               >
                 {cycle}

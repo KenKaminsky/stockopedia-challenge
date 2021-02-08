@@ -4,7 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import { attachApollo } from './apollo/server';
-import { plans } from './mock_data/seed.json';
+import { plans } from '../data/seed.json';
 import Plan from './models/plan';
 
 env.config(); //take this out to a script arg

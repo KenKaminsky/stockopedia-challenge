@@ -6,7 +6,6 @@ import {
   makeStyles,
   MenuItem,
   Paper,
-  Theme,
 } from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -16,7 +15,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import React, { useRef, useState } from 'react';
 import { IIdentifiable } from '../../apollo_client/types';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: '100%',
@@ -42,13 +41,11 @@ const Select = <T extends IIdentifiable>({
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number,
   ) => {
-    setSelectedIndex(index);
     onChange(options[index]);
     setOpen(false);
   };
@@ -88,7 +85,6 @@ const Select = <T extends IIdentifiable>({
         role={undefined}
         transition
         disablePortal
-        // placement={'bottom'}
       >
         {({ TransitionProps, placement }) => (
           <Grow
@@ -104,7 +100,9 @@ const Select = <T extends IIdentifiable>({
                   {options.map((option, index) => (
                     <MenuItem
                       key={option.id}
-                      selected={index === selectedIndex}
+                      selected={
+                        index === options?.findIndex((o) => o?.id === state?.id)
+                      }
                       onClick={(event) => handleMenuItemClick(event, index)}
                     >
                       {option.name}
